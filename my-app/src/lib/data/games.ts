@@ -9,7 +9,7 @@ const games: Game[] = [
       "Neon Racer VR adalah simulasi balap futuristik di dunia cyberpunk. Kamu akan mengendarai hovercar berkecepatan tinggi melalui jalur neon yang bergerak terus-menerus, dengan tantangan waktu, rintangan hologram, dan upgrade gear.",
     genre: "Racing / VR",
     rating: 4.7,
-    thumbnail: "/assets/games/neon-racer-vr.jpg",
+    thumbnail: "/images/vario.jpg",
     previewUrl: "https://example.com/play/neon-racer-vr",
     status: "Online",
     color: "cyan"
@@ -22,7 +22,7 @@ const games: Game[] = [
       "HoloCity Defender adalah game strategi dan aksi di mana kamu menjadi komandan pertahanan kota yang diterangi neon.",
     genre: "Strategy / Tower Defense",
     rating: 4.5,
-    thumbnail: "/assets/games/holocity-defender.jpg",
+    thumbnail: "/images/vario.jpg",
     previewUrl: "https://example.com/play/holocity-defender",
     status: "Online",
     color: "emerald"
@@ -35,7 +35,7 @@ const games: Game[] = [
       "Synthwave Rhythm adalah simulasi musik futuristik dengan beat cyberpunk dan neon visualisasi.",
     genre: "Music / Rhythm",
     rating: 4.8,
-    thumbnail: "/assets/games/synthwave-rhythm.jpg",
+    thumbnail: "/images/vario.jpg",
     previewUrl: "https://example.com/play/synthwave-rhythm",
     status: "Online",
     color: "pink"
@@ -48,7 +48,7 @@ const games: Game[] = [
       "Cyber Heist Simulator menempatkan kamu sebagai hacker futuristik meretas sistem keamanan megacorp.",
     genre: "Stealth / Puzzle",
     rating: 4.6,
-    thumbnail: "/assets/games/cyber-heist-simulator.jpg",
+    thumbnail: "/images/vario.jpg",
     previewUrl: "https://example.com/play/cyber-heist-simulator",
     status: "Offline",
     color: "purple"
@@ -61,7 +61,7 @@ const games: Game[] = [
       "Quantum Puzzle Grid adalah permainan logika berbasis neon cube yang terus berubah.",
     genre: "Puzzle / Logic",
     rating: 4.9,
-    thumbnail: "/assets/games/quantum-puzzle-grid.jpg",
+    thumbnail: "/images/vario.jpg",
     previewUrl: "https://example.com/play/quantum-puzzle-grid",
     status: "Online",
     color: "blue"
@@ -74,7 +74,7 @@ const games: Game[] = [
       "HoloArena Combat menghadirkan pertempuran cepat di arena hologram.",
     genre: "Action / Arena",
     rating: 4.4,
-    thumbnail: "/assets/games/holoarena-combat.jpg",
+    thumbnail: "/images/vario.jpg",
     previewUrl: "https://example.com/play/holoarena-combat",
     status: "Offline",
     color: "red"
@@ -87,7 +87,7 @@ const games: Game[] = [
       "Cyberpunk Tower Builder adalah simulasi konstruksi di mana kamu harus mengelola sumber daya.",
     genre: "Simulation / Strategy",
     rating: 4.3,
-    thumbnail: "/assets/games/cyberpunk-tower-builder.jpg",
+    thumbnail: "/images/vario.jpg",
     previewUrl: "https://example.com/play/cyberpunk-tower-builder",
     status: "Online",
     color: "yellow"
@@ -100,7 +100,20 @@ const games: Game[] = [
       "Neon Dungeons VR membawa kamu ke ranah bawah tanah cyberpunk penuh teka-teki dan monster hologram.",
     genre: "Adventure / VR",
     rating: 4.7,
-    thumbnail: "/assets/games/neon-dungeons-vr.jpg",
+    thumbnail: "/images/vario.jpg",
+    previewUrl: "https://example.com/play/neon-dungeons-vr",
+    status: "Online",
+    color: "teal"
+  },
+  {
+    id: 8,
+    title: "Neon Dungeons VR",
+    description: "Explore glowing dungeons with cyber loot.",
+    fullDescription:
+      "Neon Dungeons VR membawa kamu ke ranah bawah tanah cyberpunk penuh teka-teki dan monster hologram.",
+    genre: "Adventure / VR",
+    rating: 4.7,
+    thumbnail: "/images/vario.jpg",
     previewUrl: "https://example.com/play/neon-dungeons-vr",
     status: "Online",
     color: "teal"

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Navbar from "$lib/components/Navbar.svelte";
   import Hero from "$lib/components/Hero.svelte";
   import GameList from "$lib/components/GameList.svelte";
@@ -11,7 +11,7 @@
   let mouseX = 0;
   let mouseY = 0;
 
-  function handleMouseMove(e) {
+  function handleMouseMove(e: MouseEvent) {
     // Mengikuti koordinat mouse untuk efek pencahayaan dinamis
     mouseX = (e.clientX / window.innerWidth) * 100;
     mouseY = (e.clientY / window.innerHeight) * 100;

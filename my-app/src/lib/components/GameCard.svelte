@@ -2,124 +2,151 @@
   import { Button } from "$lib/components/ui/button";
   import { Badge } from "$lib/components/ui/badge";
   import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "$lib/components/ui/card";
-  import { Play, Users, Star, Clock, Zap } from "@lucide/svelte";
-
+  import { Play, Users, Star, Clock, Zap, Target } from "@lucide/svelte";
   import type { Game } from "$lib/types/game";
+  import { cn } from "$lib/utils/cn";
 
-  // ✅ props (Svelte 5)
-  let { game }: { game: Game } = $props();
+  let {
+    game,
+    onPlay,
+  }: {
+    game: Game;
+    onPlay?: (game: Game) => void;
+  } = $props();
 
-  // ✅ state (Svelte 5)
   let hovered = $state(false);
   let showGlitch = $state(false);
 
-  // ✅ effect dengan cleanup
+  // Efek Glitch saat hover lama (Svelte 5 $effect)
   $effect(() => {
-    if (!hovered) return;
+    if (!hovered) {
+      showGlitch = false;
+      return;
+    }
 
     const timer = setTimeout(() => {
       showGlitch = true;
-      const glitchTimer = setTimeout(() => {
-        showGlitch = false;
-      }, 300);
-
+      const glitchTimer = setTimeout(() => (showGlitch = false), 200);
       return () => clearTimeout(glitchTimer);
-    }, 1000);
+    }, 1200);
 
     return () => clearTimeout(timer);
   });
 
-  const getColorClass = (color: string) => {
-    const colors: Record<string, string> = {
-      cyan: "from-primary to-cyber-purple",
-      magenta: "from-cyber-magenta to-pink-600",
-      purple: "from-cyber-purple to-violet-600",
+  const getColorTheme = (color: string) => {
+    const themes: Record<string, { bg: string; text: string; glow: string }> = {
+      cyan: { bg: "bg-primary/20", text: "text-primary", glow: "shadow-[0_0_20px_rgba(var(--primary-rgb),0.4)]" },
+      magenta: { bg: "bg-cyber-magenta/20", text: "text-cyber-magenta", glow: "shadow-[0_0_20px_rgba(255,0,255,0.4)]" },
+      purple: { bg: "bg-cyber-purple/20", text: "text-cyber-purple", glow: "shadow-[0_0_20px_rgba(168,85,247,0.4)]" },
     };
-    return colors[color] ?? colors.cyan;
+    return themes[color] ?? themes.cyan;
   };
+
+  const theme = $derived(getColorTheme(game.color));
 </script>
 
-<div class="relative group cursor-pointer transition-all duration-500 h-full" on:mouseenter={() => (hovered = true)} on:mouseleave={() => (hovered = false)}>
-  <!-- Glitch Effect -->
-  {#if showGlitch}
-    <div class="absolute inset-0 bg-gradient-to-r from-primary/10 via-cyber-magenta/10 to-cyber-purple/10 z-10 animate-glitch rounded-xl"></div>
-  {/if}
+<div class="relative group h-full" onmouseenter={() => (hovered = true)} onmouseleave={() => (hovered = false)} role="presentation">
+  <div class={cn("absolute -inset-2 rounded-none opacity-0 group-hover:opacity-15 blur-2xl transition-all duration-700 -z-10", theme.bg)}></div>
 
-  <Card class="h-full border-primary/20 bg-card/50 backdrop-blur-sm transition-all duration-500 group-hover:border-primary/50 group-hover:shadow-neon-cyan">
-    <!-- Game Header -->
-    <div class="relative h-48 overflow-hidden rounded-t-lg">
-      <!-- Gradient Background -->
-      <div class={`absolute inset-0 bg-gradient-to-br ${getColorClass(game.color)}/20`}>
-        {#if game.image}
-          <img src={game.image} alt={game.title} class="w-full h-full object-cover mix-blend-overlay opacity-50" />
-        {/if}
-      </div>
+  <Card class={cn("h-full flex flex-col transition-all duration-500", hovered ? "border-primary/60 translate-y-[-8px]" : "border-primary/10")}>
+    <CardHeader class="p-0 overflow-hidden relative aspect-video">
+      {#if game.thumbnail}
+        <img src={game.thumbnail} alt={game.title} class={cn("w-full h-full object-cover transition-transform duration-1000", hovered ? "scale-110 blur-[1px] grayscale-0" : "scale-100 grayscale-[0.3]")} />
+      {/if}
 
-      <!-- Overlay Gradient -->
-      <div class="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40"></div>
 
-      <!-- Status Badge -->
-      <div class="absolute top-3 left-3">
-        <Badge variant={game.status === "Online" ? "default" : "secondary"} class="border backdrop-blur-sm">
-          <Zap class="w-3 h-3 mr-1" />
+      <div class="absolute top-4 left-4 right-4 flex justify-between items-start pointer-events-none">
+        <Badge variant={game.status === "Online" ? "neon" : "outline"} class="backdrop-blur-md">
+          <Zap class="size-3 mr-1 fill-current" />
           {game.status}
         </Badge>
+
+        <!-- <div class="flex flex-col items-end gap-1">
+          <div class="flex items-center gap-2 bg-black/60 backdrop-blur-md px-2 py-0.5 border-r-2 border-primary">
+            <Users class="size-3 text-primary" />
+            <span class="text-[10px] font-mono text-white">{game.players}</span>
+          </div>
+        </div> -->
       </div>
 
-      <!-- Players Count -->
-      <div class="absolute top-3 right-3 flex items-center gap-1 bg-black/50 backdrop-blur-sm px-2 py-1 rounded-full">
-        <Users class="w-3 h-3 text-primary" />
-        <span class="text-xs font-digital text-muted-foreground">{game.players}</span>
+      <div class="absolute bottom-4 left-4 flex items-center gap-2">
+        <div class="bg-primary/20 backdrop-blur-md p-1 border border-primary/40">
+          <Star class="size-3 text-yellow-400 fill-yellow-400" />
+        </div>
+        <span class="text-xs font-black text-white drop-shadow-md">{game.rating}</span>
+      </div>
+    </CardHeader>
+
+    <CardContent class="flex-grow pt-6">
+      <div class="flex items-center gap-2 mb-2 opacity-40">
+        <Target class="size-3" />
+        <span class="text-[8px] font-mono tracking-widest uppercase">Node_Index: {game.id ?? "00"}</span>
       </div>
 
-      <!-- Rating -->
-      <div class="absolute bottom-3 left-3 flex items-center gap-1 bg-black/50 backdrop-blur-sm px-2 py-1 rounded-full">
-        <Star class="w-3 h-3 text-yellow-500 fill-yellow-500" />
-        <span class="text-xs font-bold text-white">{game.rating}</span>
-      </div>
-    </div>
-
-    <CardContent class="p-4">
-      <CardTitle class="text-lg mb-2 group-hover:text-primary transition-colors duration-300">
+      <CardTitle class="mb-3">
         {game.title}
       </CardTitle>
 
-      <p class="text-sm text-muted-foreground mb-4 line-clamp-2">
+      <p class="text-muted-foreground text-xs leading-relaxed line-clamp-2 mb-4 font-sans">
         {game.description}
       </p>
 
-      <!-- Tags -->
-      <div class="flex flex-wrap gap-1 mb-4">
+      <!-- <div class="flex flex-wrap gap-2">
         {#each game.tags as tag}
-          <Badge variant="outline" class="text-xs border-primary/30 bg-primary/5 text-primary">
-            {tag}
+          <Badge variant="outline" class="text-[9px] lowercase opacity-70 hover:opacity-100 hover:border-primary transition-all">
+            #{tag}
           </Badge>
         {/each}
-      </div>
+      </div> -->
     </CardContent>
 
-    <CardFooter class="p-4 pt-0 flex items-center justify-between">
-      <div class="flex items-center gap-3 text-sm text-muted-foreground">
-        <div class="flex items-center gap-1">
-          <Clock class="w-3 h-3" />
+    <CardFooter class="border-t border-primary/10 bg-primary/5 p-4 flex items-center justify-between">
+      <div class="flex flex-col">
+        <!-- <div class="flex items-center gap-1 text-[10px] text-muted-foreground font-mono">
+          <Clock class="size-3" />
           <span>{game.playtime}</span>
-        </div>
-        <span class="font-digital">{game.genre}</span>
+        </div> -->
+        <span class="text-[10px] text-primary/60 font-black uppercase tracking-tighter">{game.genre}</span>
       </div>
 
-      <Button variant="cyber" size="sm" class={`bg-gradient-to-r ${getColorClass(game.color)}`}>
-        <Play class="w-4 h-4 mr-2" />
-        PLAY
+      <Button variant="cyber" size="sm" class="h-8" onclick={() => onPlay?.(game)}>
+        <Play class="size-3 mr-2 fill-current" />
+        LAUNCH
       </Button>
     </CardFooter>
 
-    <!-- Cyber Lines Effect -->
-    <div class="absolute inset-0 pointer-events-none">
-      <div class="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-      <div class="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-    </div>
+    {#if showGlitch}
+      <div class="absolute inset-0 bg-primary/5 z-50 pointer-events-none mix-blend-overlay animate-glitch"></div>
+    {/if}
   </Card>
-
-  <!-- Hover Glow Effect -->
-  <div class={`absolute -inset-1 bg-gradient-to-r ${getColorClass(game.color)} rounded-xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500 -z-10`}></div>
 </div>
+
+<style>
+  /* Animasi Glitch Khusus */
+  @keyframes glitch {
+    0% {
+      transform: translate(0);
+      clip-path: inset(0 0 0 0);
+    }
+    20% {
+      transform: translate(-2px, 2px);
+      clip-path: inset(20% 0 50% 0);
+    }
+    40% {
+      transform: translate(2px, -2px);
+      clip-path: inset(40% 0 10% 0);
+    }
+    60% {
+      transform: translate(-5px, 0);
+      clip-path: inset(10% 0 70% 0);
+    }
+    100% {
+      transform: translate(0);
+      clip-path: inset(0 0 0 0);
+    }
+  }
+  .animate-glitch {
+    animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+  }
+</style>

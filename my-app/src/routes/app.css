@@ -18,8 +18,4 @@
     color: hsl(var(--foreground));
     overflow-x: hidden;
   }
-
-  * {
-    border-color: hsl(var(--border));
-  }
 }

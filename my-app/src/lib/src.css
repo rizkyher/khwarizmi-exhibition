@@ -1,0 +1,55 @@
+@import "tailwindcss/preflight" @tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 100% 3%;
+    --foreground: 210 40% 98%;
+    --card: 240 50% 5%;
+    --card-foreground: 210 40% 98%;
+    --popover: 240 50% 5%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 185 100% 50%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 300 100% 50%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 240 50% 10%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 270 100% 50%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 240 50% 15%;
+    --input: 240 50% 15%;
+    --ring: 185 100% 50%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-cyber-cyan via-cyber-purple to-cyber-magenta bg-clip-text text-transparent;
+  }
+
+  .neon-border {
+    @apply border border-cyber-cyan/30 shadow-[0_0_10px_rgba(0,243,255,0.3),0_0_20px_rgba(0,243,255,0.2)];
+  }
+
+  .cyber-card {
+    @apply relative overflow-hidden rounded-lg border border-cyber-cyan/20 bg-cyber-dark-light/50 backdrop-blur-sm transition-all duration-300 hover:border-cyber-cyan/50 hover:shadow-[0_0_30px_rgba(0,243,255,0.3)];
+  }
+
+  .cyber-button {
+    @apply relative overflow-hidden rounded-lg bg-gradient-to-r from-cyber-cyan via-cyber-purple to-cyber-magenta px-6 py-3 font-bold text-black transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(157,0,255,0.5)];
+  }
+}

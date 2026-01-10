@@ -46,6 +46,22 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
     },
+    extend: {
+  keyframes: {
+    'scroll-right': {
+      '0%': { transform: 'translateX(-100%)' },
+      '100%': { transform: 'translateX(100%)' },
+    },
+    'scroll-left': {
+      '0%': { transform: 'translateX(100%)' },
+      '100%': { transform: 'translateX(-100%)' },
+    },
+  },
+  animation: {
+    'marquee-right': 'scroll-right 18s linear infinite',
+    'marquee-left': 'scroll-left 18s linear infinite',
+  },
+}
   },
   plugins: [require("tailwindcss-animate")],
 };

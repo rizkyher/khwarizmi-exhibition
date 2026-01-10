@@ -1,6 +1,20 @@
 <section class="min-h-screen flex items-center justify-center text-center relative overflow-hidden">
   <div class="absolute inset-0 bg-[radial-gradient(circle,rgba(0,255,255,.08),transparent_60%)]"></div>
 
+   <!-- Marquee Atas -->
+  <div class="absolute top-10 w-full overflow-hidden whitespace-nowrap text-neon-magenta text-xl tracking-widest opacity-70">
+    <div class="inline-block marquee-left">
+      ⚡ GAME DEVELOPMENT • FUTURE TECH • INTERACTIVE SIMULATION • AI GAMEPLAY •
+    </div>
+  </div>
+
+  <!-- Marquee Bawah -->
+  <div class="absolute bottom-10 w-full overflow-hidden whitespace-nowrap text-neon-cyan text-xl tracking-widest opacity-70">
+    <div class="inline-block marquee-right">
+      🚀 LEARN • BUILD • PLAY • EXPLORE THE FUTURE OF GAMES •
+    </div>
+  </div>
+
   <div class="relative z-10">
     <h1 class="text-5xl md:text-7xl font-extrabold text-neon-cyan animate-glitch">FUTURE GAME LAB</h1>
     <p class="mt-6 text-gray-300 max-w-xl mx-auto">Learn game development through futuristic interactive simulations.</p>
@@ -12,4 +26,5 @@
       START EXPLORING
     </button>
   </div>
+  
 </section>

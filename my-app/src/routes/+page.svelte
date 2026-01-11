@@ -21,12 +21,11 @@
       <Hero />
       <RunningTicker />
       <About />
-
-      <Showcase />
       <Mechanics />
-      <section id="game-list" class="py-32 bg-black/50 border-t border-white/5">
-        <div class="container mx-auto px-6">
-          <div class="flex flex-col mb-16 space-y-4">
+
+      <section id="archive" class="relative border-t border-white/5 bg-[#050505]">
+        <div class="container mx-auto px-6 pt-32 relative z-30">
+          <div class="flex flex-col mb-12 space-y-4">
             <h2 class="text-6xl font-black italic uppercase tracking-tighter">
               Project <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-magenta-500">Archive</span>
             </h2>
@@ -34,12 +33,14 @@
               <p class="text-white/40 max-w-md font-mono text-xs uppercase tracking-widest">
                 // Loading_Repository: {activeCategory}
               </p>
-              <GameFilter bind:selected={activeCategory} />
+              <div class="relative z-50">
+                <GameFilter bind:selected={activeCategory} />
+              </div>
             </div>
           </div>
-
-          <GameList filter={activeCategory} />
         </div>
+
+        <GameList filter={activeCategory} />
       </section>
     </main>
 

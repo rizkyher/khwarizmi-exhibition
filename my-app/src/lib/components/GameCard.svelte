@@ -45,108 +45,97 @@
   const theme = $derived(getColorTheme(game.color));
 </script>
 
-<div class="relative group h-full" onmouseenter={() => (hovered = true)} onmouseleave={() => (hovered = false)} role="presentation">
-  <div class={cn("absolute -inset-2 rounded-none opacity-0 group-hover:opacity-15 blur-2xl transition-all duration-700 -z-10", theme.bg)}></div>
+<div 
+  class="relative group h-full pixel-font" 
+  onmouseenter={() => (hovered = true)} 
+  onmouseleave={() => (hovered = false)} 
+  role="presentation"
+>
+  <div class={cn(
+    "absolute -inset-1 opacity-0 group-hover:opacity-100 transition-none -z-10 border-[4px] border-double", 
+    theme.bg
+  )}></div>
 
-  <Card class={cn("h-full flex flex-col transition-all duration-500", hovered ? "border-primary/60 translate-y-[-8px]" : "border-primary/10")}>
-    <CardHeader class="p-0 overflow-hidden relative aspect-video">
+  <Card class={cn(
+    "h-full flex flex-col transition-all duration-75 bg-black border-[3px] rounded-none", 
+    hovered ? "border-primary translate-x-1 translate-y-[-4px] shadow-[6px_6px_0px_0px_rgba(var(--primary-rgb),1)]" : "border-zinc-800 shadow-none"
+  )}>
+    
+    <CardHeader class="p-0 overflow-hidden relative aspect-video border-b-[3px] border-zinc-800 rounded-none">
       {#if game.thumbnail}
-        <img src={game.thumbnail} alt={game.title} class={cn("w-full h-full object-cover transition-transform duration-1000", hovered ? "scale-110 blur-[1px] grayscale-0" : "scale-100 grayscale-[0.3]")} />
+        <img 
+          src={game.thumbnail} 
+          alt={game.title} 
+          class={cn(
+            "w-full h-full object-cover [image-rendering:pixelated] brightness-75", 
+            hovered ? "scale-105 brightness-100" : ""
+          )} 
+        />
       {/if}
 
-      <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40"></div>
+      <div class="absolute inset-0 opacity-30 pointer-events-none" style="background-image: radial-gradient(#000 1px, transparent 0); background-size: 3px 3px;"></div>
 
-      <div class="absolute top-4 left-4 right-4 flex justify-between items-start pointer-events-none">
-        <Badge variant={game.status === "Online" ? "neon" : "outline"} class="backdrop-blur-md">
-          <Zap class="size-3 mr-1 fill-current" />
+      <div class="absolute top-2 left-2 flex flex-col">
+        <div class={cn(
+          "px-2 py-1 text-[8px] uppercase border-b-4 border-r-4",
+          game.status === "Online" ? "bg-green-500 text-black border-green-900" : "bg-zinc-700 text-white border-zinc-900"
+        )}>
           {game.status}
-        </Badge>
-
-        <!-- <div class="flex flex-col items-end gap-1">
-          <div class="flex items-center gap-2 bg-black/60 backdrop-blur-md px-2 py-0.5 border-r-2 border-primary">
-            <Users class="size-3 text-primary" />
-            <span class="text-[10px] font-mono text-white">{game.players}</span>
-          </div>
-        </div> -->
+        </div>
       </div>
 
-      <div class="absolute bottom-4 left-4 flex items-center gap-2">
-        <div class="bg-primary/20 backdrop-blur-md p-1 border border-primary/40">
-          <Star class="size-3 text-yellow-400 fill-yellow-400" />
-        </div>
-        <span class="text-xs font-black text-white drop-shadow-md">{game.rating}</span>
+      <div class="absolute bottom-2 left-2 flex items-center gap-1 bg-black p-1 border-2 border-primary">
+        <span class="text-[10px] text-yellow-400">★ {game.rating}</span>
       </div>
     </CardHeader>
 
-    <CardContent class="flex-grow pt-6">
-      <div class="flex items-center gap-2 mb-2 opacity-40">
-        <Target class="size-3" />
-        <span class="text-[8px] font-mono tracking-widest uppercase">Node_Index: {game.id ?? "00"}</span>
+    <CardContent class="flex-grow p-4 bg-black">
+      <div class="flex items-center gap-2 mb-2">
+        <div class="w-2 h-2 bg-primary animate-[pulse_0.5s_infinite_steps(2)]"></div>
+        <span class="text-[9px] text-primary/70 tracking-[2px]">LN_{game.id ?? "00"}</span>
       </div>
 
-      <CardTitle class="mb-3">
-        {game.title}
+      <CardTitle class="text-base font-bold tracking-tighter leading-none mb-4 uppercase break-words">
+        <span class={hovered ? "text-primary [text-shadow:2px_2px_0px_#500]" : "text-white"}>
+          {game.title}
+        </span>
       </CardTitle>
 
-      <p class="text-muted-foreground text-xs leading-relaxed line-clamp-2 mb-4 font-sans">
-        {game.description}
+      <p class="text-zinc-500 text-[10px] leading-[1.4] line-clamp-2 mb-4 lowercase tracking-tight">
+        >> {game.description}
       </p>
-
-      <!-- <div class="flex flex-wrap gap-2">
-        {#each game.tags as tag}
-          <Badge variant="outline" class="text-[9px] lowercase opacity-70 hover:opacity-100 hover:border-primary transition-all">
-            #{tag}
-          </Badge>
-        {/each}
-      </div> -->
     </CardContent>
 
-    <CardFooter class="border-t border-primary/10 bg-primary/5 p-4 flex items-center justify-between">
+    <CardFooter class="border-t-[3px] border-zinc-800 bg-zinc-900/30 p-3 flex items-center justify-between">
       <div class="flex flex-col">
-        <!-- <div class="flex items-center gap-1 text-[10px] text-muted-foreground font-mono">
-          <Clock class="size-3" />
-          <span>{game.playtime}</span>
-        </div> -->
-        <span class="text-[10px] text-primary/60 font-black uppercase tracking-tighter">{game.genre}</span>
+        <span class="text-[8px] text-primary/80 uppercase tracking-widest">{game.genre}</span>
       </div>
 
-      <Button variant="cyber" size="sm" class="h-8" onclick={() => onPlay?.(game)}>
-        <Play class="size-3 mr-2 fill-current" />
-        LAUNCH
-      </Button>
+      <button 
+        class="relative bg-primary text-black px-3 py-1 text-[10px] font-bold uppercase hover:bg-white active:translate-y-1 transition-none border-b-4 border-r-4 border-primary-darker"
+        onclick={() => onPlay?.(game)}
+      >
+        PLAY_NOW
+      </button>
     </CardFooter>
 
-    {#if showGlitch}
-      <div class="absolute inset-0 bg-primary/5 z-50 pointer-events-none mix-blend-overlay animate-glitch"></div>
+    {#if hovered}
+      <div class="absolute inset-0 pointer-events-none overflow-hidden z-20 opacity-20">
+        <div class="w-full h-2 bg-white/20 animate-scanline"></div>
+      </div>
     {/if}
   </Card>
 </div>
 
 <style>
-  /* Animasi Glitch Khusus */
-  @keyframes glitch {
-    0% {
-      transform: translate(0);
-      clip-path: inset(0 0 0 0);
-    }
-    20% {
-      transform: translate(-2px, 2px);
-      clip-path: inset(20% 0 50% 0);
-    }
-    40% {
-      transform: translate(2px, -2px);
-      clip-path: inset(40% 0 10% 0);
-    }
-    60% {
-      transform: translate(-5px, 0);
-      clip-path: inset(10% 0 70% 0);
-    }
-    100% {
-      transform: translate(0);
-      clip-path: inset(0 0 0 0);
-    }
+  /* Menghilangkan semua lengkungan untuk kesan pixel */
+  :global(.rounded-none) { border-radius: 0 !important; }
+
+  @keyframes scanline {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(400%); }
   }
-  .animate-glitch {
-    animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+  .animate-scanline {
+    animation: scanline 1.5s steps(30) infinite;
   }
 </style>

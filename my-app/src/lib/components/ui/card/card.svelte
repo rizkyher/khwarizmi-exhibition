@@ -19,7 +19,7 @@
 
     // 3. Hover Effects
     "hover:border-primary/50 hover:shadow-[0_0_30px_rgba(var(--primary-rgb),0.15)]",
-    "hover:translate-y-[-4px]",
+    "hover:translate-y-1",
 
     className
   )}
@@ -27,8 +27,8 @@
 >
   <div class="absolute inset-0 z-[-1] bg-primary/10 opacity-0 group-hover/card:opacity-100 transition-opacity blur-xl"></div>
 
-  <div class="absolute top-0 left-0 w-[40px] h-[2px] bg-primary/50 group-hover/card:w-[60px] group-hover/card:bg-primary transition-all"></div>
-  <div class="absolute top-0 left-0 w-[2px] h-[40px] bg-primary/50 group-hover/card:h-[60px] group-hover/card:bg-primary transition-all"></div>
+  <div class="absolute top-0 left-0 w-10 h-0.5 bg-primary/50 group-hover/card:w-15 group-hover/card:bg-primary transition-all"></div>
+  <div class="absolute top-0 left-0 w-0.5 h-10 bg-primary/50 group-hover/card:h-15 group-hover/card:bg-primary transition-all"></div>
 
   <div class="absolute inset-0 opacity-[0.03] pointer-events-none bg-[[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]]"></div>
 
@@ -49,11 +49,11 @@
     inset: 0;
     padding: 1px; /* Ketebalan border */
     background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.5), transparent, rgba(var(--primary-rgb), 0.3));
-    -webkit-mask: 
-      linear-gradient(#fff 0 0) content-box, 
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
     mask-composite: exclude;
     pointer-events: none;
-    [clip-path:polygon(20px_0,100%_0,100%_calc(100%-20px),calc(100%-20px)_100%,0_100%,0_20px)];
+    clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
   }
 </style>

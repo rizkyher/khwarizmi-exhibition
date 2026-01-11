@@ -12,7 +12,7 @@
 
   <div class="grid md:grid-cols-3 gap-8">
     {#each games as game}
-      <GameCard {game} onPlay={() => (activeGame = game)} />
+      <GameCard {game} onPlay={(g) => (activeGame = g)} />
     {/each}
   </div>
 

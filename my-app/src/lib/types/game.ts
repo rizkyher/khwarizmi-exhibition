@@ -7,4 +7,6 @@ export type Game = {
   rating: number;
   thumbnail: string;
   previewUrl: string;
+  status?: 'Online' | 'Offline';
+  color: string;
 };
